@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodata Pelajar - Masa Depan Dimulai Dari Sini</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Reset dan variabel warna futuristik */
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-pink: #00f3ff;
+            --dark-bg: #0a0a16;
+            --dark-card: #13132b;
+            --dark-text: #e2e2ff;
+            --accent: #ffcc00;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glow: 0 0 10px currentColor;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(185, 103, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 42, 109, 0.03) 0%, transparent 30%);
+        }
+        
+        /* Animasi latar belakang partikel */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-40px) translateX(0); }
+            75% { transform: translateY(-20px) translateX(-10px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header dengan efek glassmorphism */
+        header {
+            background: rgba(19, 19, 43, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .profile-container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .profile-img-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+        
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            box-shadow: 
+                0 0 20px var(--neon-blue),
+                inset 0 0 20px rgba(0, 243, 255, 0.2);
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 30px var(--neon-blue),
+                0 0 40px var(--neon-purple),
+                inset 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+        
+        .profile-glow {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            top: -10px;
+            left: -10px;
+            z-index: 1;
+            filter: blur(15px);
+            opacity: 0.7;
+            animation: rotate 10s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 20px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .school-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .school-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 243, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            transition: var(--transition);
+        }
+        
+        .school-item:hover {
+            background: rgba(0, 243, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.2);
+        }
+        
+        /* Main Content */
+        main {
+            padding: 60px 0;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background: var(--dark-card);
+            border-radius: 20px;
+            padding: 30px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(0, 243, 255, 0.1);
+        }
+        
+        .card-full {
+            grid-column: 1 / -1;
+        }
+        
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--neon-blue);
+        }
+        
+        h2 i {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
+        }
+        
+        /* About Section */
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(226, 226, 255, 0.9);
+        }
+        
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            margin-bottom: 18px;
+            align-items: flex-start;
+            padding: 15px;
+            background: rgba(0, 243, 255, 0.05);
+            border-radius: 12px;
+            border-left: 3px solid var(--neon-blue);
+            transition: var(--transition);
+        }
+        
+        .info-item:hover {
+            background: rgba(0, 243, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .info-label {
+            font-weight: 600;
+            min-width: 150px;
+            color: var(--neon-blue);
+        }
+        
+        .info-value {
+            color: var(--dark-text);
+            flex: 1;
+        }
+        
+        /* Skills & Hobbies */
+        .skills-container, .hobbies-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .skill-tag, .hobby-tag {
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            font-weight: 500;
+        }
+        
+        .skill-tag {
+            background: linear-gradient(45deg, rgba(0, 243, 255, 0.2), rgba(185, 103, 255, 0.2));
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            color: var(--neon-blue);
+        }
+        
+        .hobby-tag {
+            background: linear-gradient(45deg, rgba(0, 243, 255, 0.2), rgba(255, 204, 0, 0.2));
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            color: var(--neon-pink);
+        }
+        
+        .skill-tag:hover, .hobby-tag:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .skill-tag:hover {
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+        }
+        
+        .hobby-tag:hover {
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+        }
+        
+        /* Subjects dengan efek 3D */
+        .subjects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 20px;
+        }
+        
+        .subject-item {
+            background: linear-gradient(145deg, #1a1a3a, #0f0f25);
+            padding: 25px 15px;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3),
+                        -5px -5px 15px rgba(255, 255, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .subject-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+        
+        .subject-item:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4),
+                        0 0 20px rgba(0, 243, 255, 0.1);
+        }
+        
+        .subject-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+            transition: var(--transition);
+        }
+        
+        .subject-item:hover .subject-icon {
+            transform: scale(1.2);
+            color: var(--neon-purple);
+        }
+        
+        /* Goals dengan checklist animasi */
+        .goals-list {
+            list-style-type: none;
+        }
+        
+        .goals-list li {
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .goals-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+            font-weight: bold;
+            font-size: 1.3rem;
+            width: 30px;
+            height: 30px;
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--neon-blue);
+            transition: var(--transition);
+        }
+        
+        .goals-list li:hover::before {
+            background: var(--neon-blue);
+            color: var(--dark-bg);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        /* Stats dengan animasi counter */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 25px 15px;
+            background: linear-gradient(145deg, #1a1a3a, #0f0f25);
+            border-radius: 15px;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 243, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--neon-blue);
+            display: block;
+            line-height: 1;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(226, 226, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        /* Contact dengan efek neon */
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--neon-blue);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: var(--transition);
+        }
+        
+        .contact-link:hover::before {
+            left: 100%;
+        }
+        
+        .contact-link:hover {
+            background: rgba(0, 243, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+            color: var(--neon-blue);
+        }
+        
+        .contact-link i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+        
+        /* Footer dengan efek gradien */
+        footer {
+            background: linear-gradient(180deg, var(--dark-card) 0%, #0a0a16 100%);
+            color: var(--dark-text);
+            text-align: center;
+            padding: 50px 0 30px;
+            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+        }
+        
+        .footer-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .motto {
+            font-style: italic;
+            margin-top: 20px;
+            opacity: 0.8;
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 500;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .info-grid, .subjects-container, .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card {
+                padding: 25px 20px;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .school-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            header {
+                padding: 30px 0;
+            }
+            
+            .profile-img {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .profile-glow {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partikel latar belakang -->
+    <div class="particles" id="particles"></div>
+    
+    <header>
+        <div class="container profile-container">
+            <div class="profile-img-container">
+                <div class="profile-glow"></div>
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Foto Profil" class="profile-img">
+            </div>
+            <h1>MUHAMMAD ALBAR ALGHIFARI</h1>
+            <p class="tagline">Pelajar Visioner | Inovator Masa Depan | Pencipta Perubahan</p>
+            <div class="school-info">
+                <div class="school-item">
+                    <i class="fas fa-school"></i>
+                    <span>MAN 1 LANGKAT</span>
+                </div>
+                <div class="school-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Kelas XI-1</span>
+                </div>
+                <div class="school-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>TANJUNG PURA,LANGKAT</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="card-grid">
+                <section class="card card-full">
+                    <h2><i class="fas fa-user-astronaut"></i> Tentang Saya</h2>
+                    <p class="about-text">
+                        Saya adalah pelajar dengan visi masa depan yang cerah, menggabungkan passion dalam sains, teknologi, dan seni. 
+                        Dengan mindset growth-oriented, saya terus mengasah kemampuan dan mencari peluang untuk berkembang. 
+                        Saya percaya bahwa generasi muda memiliki kekuatan untuk menciptakan perubahan positif melalui inovasi dan kolaborasi. 
+                        Misi saya adalah menjadi bagian dari solusi untuk tantangan global di masa depan.
+                    </p>
+                </section>
+                
+                <section class="card">
+                    <h2><i class="fas fa-id-card"></i> Informasi Pribadi</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Nama Lengkap:</span>
+                            <span class="info-value">MUHAMMAD ALBAR ALGHIFARI</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tanggal Lahir:</span>
+                            <span class="info-value">22/09/08</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Kelas:</span>
+                            <span class="info-value">XI-1</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Sekolah:</span>
+                            <span class="info-value">MAN 1 LANGKAT</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Alamat:</span>
+                            <span class="info-value">Tanjung pura, Langkat</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value">email@contoh.com</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="card">
+                    <h2><i class="fas fa-trophy"></i> Prestasi & Pencapaian</h2>
+                    <ul class="goals-list">
+                        <li>Juara 1 Olimpiade Sains Nasional Tingkat Provinsi</li>
+                        <li>Finalis Lomba Inovasi Teknologi Tingkat Nasional</li>
+                        <li>Peraih Medali Emas OSN Komputer 2023</li>
+                        <li>Pemimpin Terbaik OSIS Periode 2022/2023</li>
+                        <li>Penulis Artikel Ilmiah Terbaik Sekolah</li>
+                    </ul>
+                </section>
+                
+                <section class="card">
+                    <h2><i class="fas fa-brain"></i> Bidang Minat & Keahlian</h2>
+                    <div class="subjects-container">
+                        <div class="subject-item">
+                            <div class="subject-icon"><i class="fas fa-robot"></i></div>
+                            <div>Kecerdasan Buatan</div>
+                        </div>
+                        <div class="subject-item">
+                            <div class="subject-icon"><i class="fas fa-code"></i></div>
+                            <div>Pemrograman</div>
+                        </div>
+                        <div class="subject-item">
+                            <div class="subject-icon"><i class="fas fa-atom"></i></div>
+                            <div>Fisika Kuantum</div>
+                        </div>
+                        <div class="subject-item">
+                            <div class="subject-icon"><i class="fas fa-paint-brush"></i></div>
+                            <div>Desain Digital</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="card">
+                    <h2><i class="fas fa-tools"></i> Keterampilan Teknis</h2>
+                    <div class="skills-container">
+                        <span class="skill-tag">Python Programming</span>
+                        <span class="skill-tag">Web Development</span>
+                        <span class="skill-tag">UI/UX Design</span>
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">3D Modeling</span>
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Digital Marketing</span>
+                    </div>
+                </section>
+                
+                <section class="card">
+                    <h2><i class="fas fa-gamepad"></i> Aktivitas & Hobi</h2>
+                    <div class="hobbies-container">
+                        <span class="hobby-tag">Robotics Club</span>
+                        <span class="hobby-tag">Programming</span>
+                        <span class="hobby-tag">Gaming Strategi</span>
+                        <span class="hobby-tag">Fotografi</span>
+                        <span class="hobby-tag">Baca Buku Sains</span>
+                        <span class="hobby-tag">Eksperimen DIY</span>
+                    </div>
+                </section>
+                
+                <section class="card card-full">
+                    <h2><i class="fas fa-chart-network"></i> Statistik & Pencapaian</h2>
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="12">0</span>
+                            <span class="stat-label">Prestasi</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="5">0</span>
+                            <span class="stat-label">Keahlian</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="3">0</span>
+                            <span class="stat-label">Organisasi</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="8">0</span>
+                            <span class="stat-label">Proyek</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="card card-full">
+                    <h2><i class="fas fa-rocket"></i> Visi & Misi Masa Depan</h2>
+                    <p class="about-text">
+                        Saya bercita-cita menjadi seorang teknopreneur yang menciptakan solusi inovatif untuk masalah global. 
+                        Visi saya adalah mendirikan perusahaan teknologi yang fokus pada pengembangan AI untuk pendidikan dan kesehatan. 
+                        Saya berencana melanjutkan studi di bidang Computer Science dan Artificial Intelligence, 
+                        kemudian membangun startup yang dapat memberikan dampak positif bagi masyarakat. 
+                        Impian terbesar saya adalah menciptakan teknologi yang membuat pendidikan berkualitas dapat diakses oleh semua anak Indonesia.
+                    </p>
+                </section>
+                
+                <section class="card card-full">
+                    <h2><i class="fas fa-space-shuttle"></i> Hubungi Saya</h2>
+                    <div class="contact-links">
+                        <a href="mailto:email@contoh.com" class="contact-link">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                        <a href="https://wa.me/083817140579" class="contact-link">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                        <a href="https://instagram.com/namaprofil" class="contact-link">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                        <a href="#" class="contact-link">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="#" class="contact-link">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2025 Biodata Pelajar - MUHAMMAD ALBAR ALGHIFARI</p>
+            <p class="motto">"The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animasi partikel latar belakang
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const colors = ['#00f3ff', '#b967ff', '#ff2a6d'];
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Ukuran acak
+                const size = Math.random() * 5 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posisi acak
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Warna acak
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Animasi delay acak
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Animasi counter untuk statistik
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                const updateCount = () => {
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                updateCount();
+            });
+        });
+    </script>
+</body>
+</html>
